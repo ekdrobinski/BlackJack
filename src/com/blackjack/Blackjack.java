@@ -1,4 +1,5 @@
 package com.blackjack;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Blackjack {
 
@@ -19,13 +20,25 @@ public class Blackjack {
         double playerMoney = 100.00;
 
         Scanner userInput = new Scanner(System.in);
-            ///Game Loop
+            ///make an arrayList to store integers of 5s
+        ArrayList<Integer> validBetIncrements = new ArrayList<>();
+        for (int i = 5; i <= 100; i += 5) {
+            validBetIncrements.add(i);
+        }
+
+        ///Game Loop
         while(playerMoney > 0) {
             ///Play On!
             ///Take the player's bet
-            System.out.println("You have $" +playerMoney + ". How much would you like to bet?");
+            System.out.println("You have $" + playerMoney + ". How much would you like to bet (increments of 5 only)?");
             double playerBet = userInput.nextDouble();
-            if(playerBet > playerMoney) {
+
+            if (!validBetIncrements.contains((int) playerBet)) {
+                System.out.println("Invalid amount. You can only bet in increments of 5");
+                continue;
+            }
+
+            if (playerBet > playerMoney) {
                 System.out.println("You can't bet more than you have. Game over.");
                 break;
             }
